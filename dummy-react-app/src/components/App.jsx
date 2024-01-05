@@ -6,7 +6,9 @@ import React, {
   useContext,
   useRef,
   useMemo,
+  useCallback,
 } from "react";
+import CustomInput from './CustomInput';
 import TimeDisplay from "./TimeDisplay";
 import UserContext from "../contexts/UserContext";
 import ThemeReducer from "../reducers/ThemeReducer";
@@ -38,10 +40,25 @@ function App() {
     color: getTimeClicks.current > 10 ? "red" : "black",
   };
 
-
   const primeCheck = useMemo(() => {
     return isPrime(getTimeClicks.current);
   }, [getTimeClicks.current]);
+
+  const [newUserName, setNewUserName] = useState("");
+
+  const updateUserName = useCallback(() => {
+    setUserName(newUserName);
+  }, [newUserName, setUserName]);
+
+  const inputRef = useRef();
+  const focusOnInput = useCallback(() => {
+    inputRef.current.focusInput();
+  }, []);
+  const resetInputField = useCallback(() => {
+    inputRef.current.resetInput();
+  }, []);
+
+
 
   return (
     <UserContext.Provider value={{ userName, setUserName }}>
@@ -57,6 +74,15 @@ function App() {
           Get Time Button Clicks: {getTimeClicks.current}
           {primeCheck && " (Prime Number)"}
         </p>
+        <CustomInput
+        ref={inputRef}
+          value={newUserName}
+          onChange={(e) => setNewUserName(e.target.value)}
+          placeholder="Enter new user name"
+        />
+        <button onClick={updateUserName}>Update User Name</button>
+        <button onClick={focusOnInput}>Focus on Input</button>
+        <button onClick={resetInputField}>Reset Input</button>
       </div>
     </UserContext.Provider>
   );
