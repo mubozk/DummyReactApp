@@ -1,0 +1,29 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  body {
+    font: normal 14px/100% "Andale Mono", AndaleMono, monospace;
+    color: #e4d060;
+    padding: 50px;
+    background-color: #374954;
+    text-align: center;
+  }
+  
+  .dark-theme {
+    background-color: black;
+    color: white;
+  }
+  
+  button {
+    background-color: #3c3c3c;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 5px;
+    margin: 10px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  
