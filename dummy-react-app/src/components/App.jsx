@@ -5,10 +5,13 @@ import React, {
   useEffect,
   useContext,
   useRef,
+  useMemo,
 } from "react";
 import TimeDisplay from "./TimeDisplay";
 import UserContext from "../contexts/UserContext";
 import ThemeReducer from "../reducers/ThemeReducer";
+import { isPrime } from "../utils/isPrime";
+
 
 function App() {
   const now = new Date().toLocaleTimeString();
@@ -35,6 +38,11 @@ function App() {
     color: getTimeClicks.current > 10 ? "red" : "black",
   };
 
+
+  const primeCheck = useMemo(() => {
+    return isPrime(getTimeClicks.current);
+  }, [getTimeClicks.current]);
+
   return (
     <UserContext.Provider value={{ userName, setUserName }}>
       <div className={`App ${theme.darkTheme ? "dark-theme" : ""}`}>
@@ -44,6 +52,10 @@ function App() {
         <button onClick={toggleTheme}>Toggle Theme</button>
         <p style={counterStyle}>
           Get Time Button Clicks: {getTimeClicks.current}
+        </p>
+        <p style={counterStyle}>
+          Get Time Button Clicks: {getTimeClicks.current}
+          {primeCheck && " (Prime Number)"}
         </p>
       </div>
     </UserContext.Provider>
